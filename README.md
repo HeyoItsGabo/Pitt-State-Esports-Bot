@@ -7,4 +7,4 @@ Working Features
 In-Progress Features
 - Anonymous ticket system
 - Verification "button"
-- 
+- Code cleanup/documentation
