@@ -1,10 +1,10 @@
 # Pitt State Esports Bot
 
-# Working Features
+Working Features
 - Reaction roles
 - 
 
-# In-Progress Features
+In-Progress Features
 - Anonymous ticket system
 - Verification "button"
 - 
