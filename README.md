@@ -1,1 +1,10 @@
-# Pitt-State-Esports-Bot
+# Pitt State Esports Bot
+
+# Working Features
+- Reaction roles
+- 
+
+# In-Progress Features
+- Anonymous ticket system
+- Verification "button"
+- 
