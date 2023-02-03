@@ -1,16 +1,14 @@
 # TODO:
 # How tf do reaction roles work?
-# Permissions for button launch
 # Ticket system
 
 
 # Button elements credit to Digiwind- https://youtu.be/-oY0k0jU1IE
 # Reaction roles credit to Jacob
-# Owner check credit to Richard Schwabe
 
 import discord
-from roles_dict import roles_dict
 from discord import app_commands
+from discord.ext.commands import MissingPermissions
 # from keep_alive import keep_alive
 
 # Class for initiating the bot
@@ -36,13 +34,6 @@ class esportBot(discord.Client):
 # Variables
 client = esportBot()
 tree = app_commands.CommandTree(client)
-
-# Checks if the owner is doing the command, 
-def is_owner():
-    def predicate(interaction : discord.Interaction):
-        if interaction.user.id == interaction.guild.owner_id:
-            return True
-    return app_commands.check(predicate)
 
 # Error handler
 @tree.error
@@ -104,13 +95,16 @@ async def on_raw_reaction_remove(payload):
     elif payload.emoji.name == 'RocketLeague':
       role = discord.utils.get(guild.roles, name='Rocket League Team')
 
-
+# Only admins can use this command
 @tree.command(guild = discord.Object(id=951611019845840986), name = 'button', description='Launches a button!') #guild specific slash command
+@app_commands.checks.has_permissions(administrator = True)
 async def launch_button(interaction: discord.Interaction):
-   if is_owner():
-      await interaction.response.send_message(view = verify())
-   else:
-      await interaction.response.send_message(f"You do not have permission to use this command.", ephemeral=True)
-  
+   await interaction.response.send_message(view = verify())
+
+@launch_button.error
+async def launch_error(interaction: discord.Interaction, error):
+   if isinstance(error, MissingPermissions):
+      await interaction.response.send_message("You do not have permission to use this command.", ephemeral=True)
+      
 
 client.run('token')
