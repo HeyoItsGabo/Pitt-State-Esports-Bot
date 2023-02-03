@@ -36,12 +36,12 @@ client = esportBot()
 tree = app_commands.CommandTree(client)
 
 # Error handler
-@tree.error
-async def on_app_command_error(interaction, error):
-    if isinstance(error, app_commands.AppCommandError):
-        await interaction.response.send_message(error, ephemeral=True)
-    else:
-        raise error
+#@tree.error
+#async def on_app_command_error(interaction, error):
+#    if isinstance(error, app_commands.AppCommandError):
+#        await interaction.response.send_message(error, ephemeral=True)
+#    else:
+#        raise error
 
 # Button for verification
 class verify(discord.ui.View):
@@ -103,7 +103,7 @@ async def launch_button(interaction: discord.Interaction):
 
 @launch_button.error
 async def launch_error(interaction: discord.Interaction, error):
-   if isinstance(error, MissingPermissions):
+   if isinstance(error, app_commands.errors.MissingPermissions):
       await interaction.response.send_message("You do not have permission to use this command.", ephemeral=True)
       
 
