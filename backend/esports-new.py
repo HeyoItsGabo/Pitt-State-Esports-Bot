@@ -8,7 +8,6 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 from discord.ext.commands import MissingPermissions
-# from keep_alive import keep_alive
 
 # Class for initiating the bot
 class esportBot(discord.Client):
@@ -34,14 +33,6 @@ class esportBot(discord.Client):
 client = esportBot()
 tree = app_commands.CommandTree(client)
 
-# Error handler
-#@tree.error
-#async def on_app_command_error(interaction, error):
-#    if isinstance(error, app_commands.AppCommandError):
-#        await interaction.response.send_message(error, ephemeral=True)
-#    else:
-#        raise error
-
 # Button for verification
 class verify(discord.ui.View):
     def __init__(self) -> None:
@@ -56,10 +47,15 @@ class verify(discord.ui.View):
         else: await interaction.response.send_message(f"You already have {client.role.mention}!", ephemeral = True)
 
 # Only admins can use this command
-@tree.command(guild = discord.Object(id=951611019845840986), name = 'button', description='Launches a button!') #guild specific slash command
+@tree.command(guild = discord.Object(id=951611019845840986), name = 'verify_button', description='Launches a button!') #guild specific slash command
 @app_commands.checks.has_permissions(administrator = True)
 async def launch_button(interaction: discord.Interaction):
    await interaction.response.send_message(view = verify())
+
+@tree.command(guild = discord.Object(id=951611019845840986), name = 'ticket_button', description='Launches a button!')
+@app_commands.checks.has_permissions(administrator = True)
+async def ticket(interaction: discord.Interaction):
+    await interaction.response.send_message("Created your ticket!")
 
 @launch_button.error
 async def launch_error(interaction: discord.Interaction, error):
@@ -68,7 +64,8 @@ async def launch_error(interaction: discord.Interaction, error):
 
 # Emoji dictionary for reaction roles
 emoji = {
-    '💚': 'fuck you'
+    '💚': 'fuck you',
+    '<:floppa:1081274713151639582>': 'fuck you'
 }
 
 # Finally figured out the goddamn reaction roles
